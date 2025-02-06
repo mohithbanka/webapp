@@ -51,7 +51,6 @@ Develop a web application with the following pages, which must connect to the we
 
 ## Additional Use Cases (Optional)
 If time allows, implement the following additional features, ensuring they are supported in both the API and the UI:
->>>>>>> 92d8159ee5aba0bf964f91bc0393fb02e3ee61b2
 - **Filtering Options**:
   - By Country
   - By Average Spend for Two People
