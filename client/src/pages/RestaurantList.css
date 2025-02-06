@@ -1,0 +1,136 @@
+/* Main Container */
+.restaurant-list-container {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+/* Heading */
+.restaurant-list h1 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Restaurant Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  justify-content: center; /* Center the grid items */
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.filter-item {
+  min-width: 160px;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.filter-item:hover {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  padding: 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.MuiPagination-root {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.MuiPaginationItem-root {
+  font-size: 16px;
+  color: #007bff;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.MuiPaginationItem-root:hover {
+  background: #007bff;
+  color: white;
+  transform: scale(1.1);
+}
+
+.MuiPaginationItem-page.Mui-selected {
+  background: #007bff !important;
+  color: white !important;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+/* Detected Food Message */
+.detected-food {
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 20px;
+  text-align: center;
+  background: #fff3cd;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ffeeba;
+  box-shadow: 0 4px 6px rgba(255, 206, 88, 0.5);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .restaurant-list-container {
+    padding: 20px 10px;
+  }
+
+  .restaurant-list h1 {
+    font-size: 26px;
+  }
+
+  /* Grid Layout for Smaller Screens */
+  .grid {
+    grid-template-columns: 1fr; /* One card per row */
+    gap: 15px; /* Adjust gap for spacing between the cards */
+    justify-items: center; /* Center align the individual cards */
+    padding: 0; /* Remove padding inside the grid */
+  }
+
+  .pagination-container {
+    padding: 12px;
+  }
+}

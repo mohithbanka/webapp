@@ -1,0 +1,92 @@
+.restaurant-detail-container {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.restaurant-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.restaurant-image {
+  width: 60%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+  margin: 0 auto;
+}
+
+.restaurant-image:hover {
+  transform: scale(1.05);
+}
+
+.restaurant-info {
+  text-align: center;
+  width: 60%;
+  margin-top: 15px;
+}
+
+.restaurant-name {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.restaurant-cuisine {
+  font-size: 18px;
+  color: #555;
+}
+
+.restaurant-details-box {
+  width: 60%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  margin-top: 20px;
+}
+
+.restaurant-details-box h4 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.restaurant-details-box p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.menu-url {
+  margin-top: 20px;
+}
+
+.menu-link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.menu-link:hover {
+  color: #1565c0;
+}
+
+.restaurant-info .book-button {
+  margin-top: 20px;
+  background: #28a745;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  text-transform: uppercase;
+}
