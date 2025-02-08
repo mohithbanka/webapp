@@ -7,7 +7,13 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://webapp-op95cj3ea-mohiths-projects-ba442874.vercel.app/", // Replace with your frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 const mongoURI = process.env.MONGO_URI;
@@ -68,7 +74,7 @@ app.get("/api/restaurants/:id", async (req, res) => {
   }
 });
 
-app.get("/api/restaurants", async (req, res) => {
+app.get("/api/all-restaurants", async (req, res) => {
   try {
     let { page = 1, limit = 10 } = req.query;
     page = parseInt(page);

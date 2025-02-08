@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://webapp-zemg.onrender.com";
 
 export const getRestaurants = async (page, limit) => {
-  let url = `${API_BASE_URL}/restaurants?page=${page}&limit=${limit}`;
+  let url = `${API_BASE_URL}/all-restaurants?page=${page}&limit=${limit}`;
   const response = await fetch(url);
   return response.json();
 };
@@ -15,10 +15,13 @@ export const getRestaurantById = async (id) => {
 
 export const searchNearbyRestaurants = async (lat, lng, dist) => {
   try {
-    const response = await axios.get("http://localhost:5000/api/restaurant/location", {
-      params: { lat, lng, dist },
-    });
-    
+    const response = await axios.get(
+      "https://webapp-zemg.onrender.comapi/restaurant/location",
+      {
+        params: { lat, lng, dist },
+      }
+    );
+
     console.log("📡 API Response:", response.data); // Debugging log
     return response.data;
   } catch (error) {
@@ -26,7 +29,6 @@ export const searchNearbyRestaurants = async (lat, lng, dist) => {
     return { total: 0, restaurants: [] };
   }
 };
-
 
 export const searchByImage = async (formData) => {
   try {

@@ -8,7 +8,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const goToRestaurants = () => {
-    navigate("/restaurants");
+    navigate("/all-restaurants");
   };
 
   const handleLocationSearch = (lat, lng, dist) => {

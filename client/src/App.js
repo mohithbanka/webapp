@@ -8,7 +8,7 @@ import RestaurantDetail from "./pages/RestaurantDetail";
 const App = () => {
   return (
     <div>
-      <Router>
+      <Router basename="/">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} /> {/* Updated */}

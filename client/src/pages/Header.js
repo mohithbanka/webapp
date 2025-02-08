@@ -7,7 +7,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleRestaurantClick = () => {
-    navigate("/restaurants");
+    navigate("/all-restaurants");
   };
 
   const handleHomeClick = () => {
