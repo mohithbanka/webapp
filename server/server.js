@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -8,14 +9,12 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
-const mongoURI = "mongodb://localhost:27017/restaurant_data"; // Your database
+const mongoURI = process.env.MONGO_URI;
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("✅ Connected to MongoDB"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-// Define Restaurant Schema
 const RestaurantSchema = new mongoose.Schema({
   restaurant_id: Number,
   name: String,
@@ -26,7 +25,7 @@ const RestaurantSchema = new mongoose.Schema({
   locality_verbose: String,
   location: {
     type: { type: String, enum: ["Point"], default: "Point" },
-    coordinates: { type: [Number], required: true }, // [longitude, latitude]
+    coordinates: { type: [Number], required: true },
   },
   cuisines: String,
   average_cost_for_two: Number,
@@ -45,10 +44,9 @@ RestaurantSchema.index({ location: "2dsphere" });
 // Collection name: "restaurants"
 const Restaurant = mongoose.model("restaurants", RestaurantSchema); // Collection name
 
-// API Endpoint: Get Restaurant by ID
 app.get("/api/restaurants/:id", async (req, res) => {
   try {
-    const restaurantId = req.params.id.toString(); // Ensure it's a string
+    const restaurantId = req.params.id.toString();
 
     // console.log(`🔍 Searching for restaurant with ID: ${restaurantId}`);
 
@@ -80,7 +78,7 @@ app.get("/api/restaurants", async (req, res) => {
     const restaurants = await Restaurant.find()
       .select(
         "id name cuisines location average_cost_for_two price_range user_rating featured_image menu_url"
-      ) // Select necessary fields
+      )
       .skip((page - 1) * limit)
       .limit(limit);
 
@@ -146,5 +144,4 @@ app.get("/api/restaurant/location", async (req, res) => {
   }
 });
 
-// Start Server
 app.listen(port, () => console.log(`🚀 Server running on port ${port}`));
