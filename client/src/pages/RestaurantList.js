@@ -15,7 +15,15 @@ const RestaurantList = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-
+  const fetchRestaurants = async () => {
+    try {
+      const data = await getRestaurants(page, 12);
+      setRestaurants(data.restaurants);
+      setTotalPages(data.totalPages);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const pageFromUrl = queryParams.get("page");
@@ -26,16 +34,6 @@ const RestaurantList = () => {
     }
     fetchRestaurants();
   }, [location.search]);
-
-  const fetchRestaurants = async () => {
-    try {
-      const data = await getRestaurants(page, 12);
-      setRestaurants(data.restaurants);
-      setTotalPages(data.totalPages);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
 
   const handleLocationSearch = async (lat, lng, dist) => {
     try {

@@ -11,8 +11,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://webapp-op95cj3ea-mohiths-projects-ba442874.vercel.app/",
-    ], // Replace with your frontend URL
+      "https://webapp-op95cj3ea-mohiths-projects-ba442874.vercel.app",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
