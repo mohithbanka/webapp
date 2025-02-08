@@ -16,7 +16,7 @@ export const getRestaurantById = async (id) => {
 export const searchNearbyRestaurants = async (lat, lng, dist) => {
   try {
     const response = await axios.get(
-      "https://webapp-zemg.onrender.comapi/restaurant/location",
+      "https://webapp-zemg.onrender.com/api/restaurant/location",
       {
         params: { lat, lng, dist },
       }

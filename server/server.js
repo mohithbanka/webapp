@@ -9,7 +9,10 @@ const port = process.env.PORT;
 
 app.use(
   cors({
-    origin: "https://webapp-op95cj3ea-mohiths-projects-ba442874.vercel.app/", // Replace with your frontend URL
+    origin: [
+      "http://localhost:3000",
+      "https://webapp-op95cj3ea-mohiths-projects-ba442874.vercel.app/",
+    ], // Replace with your frontend URL
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
