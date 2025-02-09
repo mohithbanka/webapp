@@ -1,67 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getRestaurants, searchByImage, searchNearbyRestaurants } from "../api";
+import { getRestaurants, searchNearbyRestaurants } from "../api";
 import RestaurantCard from "../components/RestaurantCard";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import "./RestaurantList.css";
-// import LocationSearch from "../components/LocationSearch";
 
 const RestaurantList = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [detectedFood, setDetectedFood] = useState("");
-
   const location = useLocation();
   const navigate = useNavigate();
-  const fetchRestaurants = async () => {
+
+  // Fetch restaurants based on location or pagination
+  const fetchRestaurants = async (lat, lng, dist) => {
     try {
-      const data = await getRestaurants(page, 12);
-      setRestaurants(data.restaurants);
-      setTotalPages(data.totalPages);
+      if (lat && lng && dist) {
+        // Fetch restaurants based on location (lat, lng, dist)
+        const data = await searchNearbyRestaurants(lat, lng, dist);
+        setRestaurants(data.restaurants);
+        setTotalPages(1); // Only one page for location-based search
+      } else {
+        // Fallback to paginated restaurant search
+        const data = await getRestaurants(page, 12);
+        setRestaurants(data.restaurants);
+        setTotalPages(data.totalPages);
+      }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching restaurants:", error);
     }
   };
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
+    const lat = queryParams.get("lat");
+    const lng = queryParams.get("lng");
+    const dist = queryParams.get("dist");
     const pageFromUrl = queryParams.get("page");
-    if (pageFromUrl) {
-      setPage(Number(pageFromUrl));
+
+    // If lat, lng, and dist are present, fetch restaurants by location
+    if (lat && lng && dist) {
+      fetchRestaurants(lat, lng, dist);
     } else {
-      setPage(1);
-    }
-    fetchRestaurants();
-  }, [location.search]);
-
-  const handleLocationSearch = async (lat, lng, dist) => {
-    try {
-      console.log(
-        `🔍 Fetching restaurants for ${lat}, ${lng} within ${dist} km`
-      );
-      const data = await searchNearbyRestaurants(lat, lng, dist);
-      console.log("✅ API Response:", data);
-      if (data.restaurants.length === 0) {
-        alert("No restaurants found in this area.");
+      // Otherwise, fetch paginated restaurants
+      if (pageFromUrl) {
+        setPage(Number(pageFromUrl));
+      } else {
+        setPage(1);
       }
-      setRestaurants(data.restaurants);
-      setTotalPages(1);
-    } catch (error) {
-      console.error("❌ Error searching nearby restaurants:", error);
+      fetchRestaurants(); // Default paginated fetch
     }
-  };
-
-  // const handleImageSearch = async (formData) => {
-  //   try {
-  //     const data = await searchByImage(formData);
-  //     setDetectedFood(data.detectedFood);
-  //     setRestaurants(data.restaurants);
-  //     setTotalPages(1);
-  //   } catch (error) {
-  //     console.error("Error searching by image:", error);
-  //   }
-  // };
+  }, [location.search]); // Re-run when the query parameters change
 
   const handlePageChange = (e, value) => {
     setPage(value);
@@ -73,16 +63,10 @@ const RestaurantList = () => {
       <div className="restaurant-list">
         <h1>🍽️ Best Food Near You</h1>
 
-        {detectedFood && (
-          <h2 className="detected-food">Detected Food: {detectedFood}</h2>
-        )}
-
-        {/* <LocationSearch onSearch={handleLocationSearch} /> */}
-
         <div className="grid">
           {restaurants.map((restaurant) => (
             <RestaurantCard
-              key={restaurant.restaurant_id}
+              key={restaurant.id}
               restaurant={restaurant}
             />
           ))}

@@ -15,7 +15,8 @@ const Home = () => {
     console.log(
       `Searching nearby restaurants at (${lat}, ${lng}) within ${dist} km`
     );
-    navigate(`/restaurants?lat=${lat}&lng=${lng}&dist=${dist}`);
+    // Navigate with the location search parameters
+    navigate(`/all-restaurants/location?lat=${lat}&lng=${lng}&dist=${dist}`);
   };
 
   return (

@@ -6,17 +6,17 @@ require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT;
-
-app.use(
-  cors({
-    origin: [
-      "http://localhost:3000",
-      "https://webapp-op95cj3ea-mohiths-projects-ba442874.vercel.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:3000",
+//       "https://webapp-op95cj3ea-mohiths-projects-ba442874.vercel.app",
+//     ],
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true,
+//   })
+// );
 app.use(express.json());
 
 const mongoURI = process.env.MONGO_URI;
@@ -54,7 +54,7 @@ RestaurantSchema.index({ location: "2dsphere" });
 // Collection name: "restaurants"
 const Restaurant = mongoose.model("restaurants", RestaurantSchema); // Collection name
 
-app.get("/api/restaurants/:id", async (req, res) => {
+app.get("/restaurants/:id", async (req, res) => {
   try {
     const restaurantId = req.params.id.toString();
 
@@ -77,7 +77,7 @@ app.get("/api/restaurants/:id", async (req, res) => {
   }
 });
 
-app.get("/api/all-restaurants", async (req, res) => {
+app.get("/all-restaurants", async (req, res) => {
   try {
     let { page = 1, limit = 10 } = req.query;
     page = parseInt(page);
@@ -103,7 +103,7 @@ app.get("/api/all-restaurants", async (req, res) => {
   }
 });
 
-app.get("/api/restaurant/location", async (req, res) => {
+app.get("/api/restaurants/location", async (req, res) => {
   try {
     let { lat, lng, radius = 3, page = 1, limit = 10 } = req.query;
 

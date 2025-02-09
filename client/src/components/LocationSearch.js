@@ -6,6 +6,7 @@ const LocationSearch = ({ onSearch }) => {
   const [lng, setLongitude] = useState("");
   const [dist, setDistance] = useState("3"); // Default to 3km
 
+
   const handleSearch = () => {
     if (!lat || !lng) {
       alert("Please enter valid latitude and longitude!");

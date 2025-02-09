@@ -11,9 +11,20 @@ const App = () => {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} /> {/* Updated */}
-          <Route path="/all-restaurants" element={<RestaurantList />} />{" "}
-          <Route path="/restaurant/:id" element={<RestaurantDetail />} />{" "}
+          {/* Home page route */}
+          <Route path="/" element={<Home />} />
+
+          {/* Restaurant list page route */}
+          <Route path="/all-restaurants" element={<RestaurantList />} />
+
+          {/* Location-based restaurant list route */}
+          <Route
+            path="/all-restaurants/location"
+            element={<RestaurantList />}
+          />
+
+          {/* Restaurant detail page route */}
+          <Route path="/restaurant/:id" element={<RestaurantDetail />} />
         </Routes>
       </Router>
     </div>
