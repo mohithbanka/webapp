@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000"; // Change this to your backend URL
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE_URL || "https://webapp-zemg.onrender.com"; // Change this to your backend URL
 
 // Fetch all restaurants (paginated)
 export const getRestaurants = async (page, limit) => {
@@ -18,9 +19,12 @@ export const getRestaurantById = async (id) => {
 // Fetch nearby restaurants based on location
 export const searchNearbyRestaurants = async (lat, lng, dist) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/api/restaurants/location`, {
-      params: { lat, lng, dist },
-    });
+    const response = await axios.get(
+      `${API_BASE_URL}/api/restaurants/location`,
+      {
+        params: { lat, lng, dist },
+      }
+    );
 
     console.log("📡 API Response:", response.data); // Debugging log
     return response.data; // Return the fetched restaurants
