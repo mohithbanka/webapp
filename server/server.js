@@ -7,16 +7,6 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT;
 app.use(cors());
-// app.use(
-//   cors({
-//     origin: [
-//       "http://localhost:3000",
-//       "https://webapp-op95cj3ea-mohiths-projects-ba442874.vercel.app",
-//     ],
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     credentials: true,
-//   })
-// );
 app.use(express.json());
 
 const mongoURI = process.env.MONGO_URI;
@@ -83,14 +73,15 @@ app.get("/all-restaurants", async (req, res) => {
     page = parseInt(page);
     limit = parseInt(limit);
 
-    const total = await Restaurant.countDocuments();
+    const total = await Restaurant.estimatedDocumentCount(); // Faster than countDocuments()
 
     const restaurants = await Restaurant.find()
       .select(
-        "id name cuisines location average_cost_for_two price_range user_rating featured_image menu_url"
+        "name cuisines location average_cost_for_two price_range user_rating featured_image menu_url"
       )
       .skip((page - 1) * limit)
-      .limit(limit);
+      .limit(limit)
+      .lean();
 
     res.json({
       total,
@@ -154,4 +145,4 @@ app.get("/api/restaurants/location", async (req, res) => {
   }
 });
 
-app.listen(port, () => console.log(`🚀 Server running on port ${port}`));
+app.listen(port, () => console.log(`🚀 Server running on port`));
