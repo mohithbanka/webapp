@@ -48,18 +48,14 @@ app.get("/restaurants/:id", async (req, res) => {
   try {
     const restaurantId = req.params.id.toString();
 
-    // console.log(`🔍 Searching for restaurant with ID: ${restaurantId}`);
-
     const restaurant = await Restaurant.findOne({
       id: restaurantId,
     });
 
     if (!restaurant) {
-      // console.log("❌ No matching restaurant found.");
       return res.status(404).json({ message: "Restaurant Not Found" });
     }
 
-    // console.log("✅ Restaurant found:", restaurant);
     res.json(restaurant);
   } catch (error) {
     console.error("❌ Server Error:", error);
@@ -100,7 +96,7 @@ app.get("/api/restaurants/location", async (req, res) => {
 
     lat = parseFloat(lat);
     lng = parseFloat(lng);
-    radius = parseFloat(radius) * 1000; // Convert km to meters
+    radius = parseFloat(radius) * 1000;
     page = parseInt(page);
     limit = parseInt(limit);
 
@@ -109,10 +105,6 @@ app.get("/api/restaurants/location", async (req, res) => {
         .status(400)
         .json({ message: "Invalid latitude, longitude, or radius" });
     }
-
-    // console.log(
-    //   `📍 Searching for restaurants within ${radius} meters of [${lng}, ${lat}]`
-    // );
 
     const restaurants = await Restaurant.find({
       location: {
@@ -125,11 +117,10 @@ app.get("/api/restaurants/location", async (req, res) => {
       .skip((page - 1) * limit)
       .limit(limit)
       .select(
-        "restaurant_id name cuisines location average_cost_for_two price_range user_rating"
+        "id name cuisines location average_cost_for_two price_range user_rating featured_image menu_url"
       );
 
     if (restaurants.length === 0) {
-      console.log("❌ No restaurants found near this location.");
       return res
         .status(404)
         .json({ message: "No restaurants found in this area." });
@@ -140,7 +131,6 @@ app.get("/api/restaurants/location", async (req, res) => {
       restaurants,
     });
   } catch (error) {
-    console.error("❌ Error fetching nearby restaurants:", error);
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 });
