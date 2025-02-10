@@ -4,31 +4,35 @@ import { getRestaurants, searchNearbyRestaurants } from "../api";
 import RestaurantCard from "../components/RestaurantCard";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import "./RestaurantList.css";
 
 const RestaurantList = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false); // Loading state
   const location = useLocation();
   const navigate = useNavigate();
 
   // Fetch restaurants based on location or pagination
   const fetchRestaurants = async (lat, lng, dist) => {
+    setLoading(true); // Start loading
     try {
       if (lat && lng && dist) {
-        // Fetch restaurants based on location (lat, lng, dist)
         const data = await searchNearbyRestaurants(lat, lng, dist);
         setRestaurants(data.restaurants);
-        setTotalPages(1); // Only one page for location-based search
+        setTotalPages(1);
       } else {
-        // Fallback to paginated restaurant search
         const data = await getRestaurants(page, 12);
         setRestaurants(data.restaurants);
         setTotalPages(data.totalPages);
       }
     } catch (error) {
       console.error("Error fetching restaurants:", error);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -39,19 +43,17 @@ const RestaurantList = () => {
     const dist = queryParams.get("dist");
     const pageFromUrl = queryParams.get("page");
 
-    // If lat, lng, and dist are present, fetch restaurants by location
     if (lat && lng && dist) {
       fetchRestaurants(lat, lng, dist);
     } else {
-      // Otherwise, fetch paginated restaurants
       if (pageFromUrl) {
         setPage(Number(pageFromUrl));
       } else {
         setPage(1);
       }
-      fetchRestaurants(); // Default paginated fetch
+      fetchRestaurants();
     }
-  }, [location.search]); // Re-run when the query parameters change
+  }, [location.search]);
 
   const handlePageChange = (e, value) => {
     setPage(value);
@@ -62,26 +64,40 @@ const RestaurantList = () => {
     <div className="restaurant-list-container">
       <div className="restaurant-list">
         <h1>🍽️ Best Food Near You</h1>
+        {loading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "50vh",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <>
+            <div className="grid">
+              {restaurants.map((restaurant) => (
+                <RestaurantCard
+                  key={restaurant.restaurant_id}
+                  restaurant={restaurant}
+                />
+              ))}
+            </div>
 
-        <div className="grid">
-          {restaurants.map((restaurant) => (
-            <RestaurantCard
-              key={restaurant.id}
-              restaurant={restaurant}
-            />
-          ))}
-        </div>
-
-        {totalPages > 1 && (
-          <Stack spacing={2} className="pagination-container">
-            <Pagination
-              count={totalPages}
-              page={page}
-              onChange={handlePageChange}
-              variant="outlined"
-              shape="rounded"
-            />
-          </Stack>
+            {totalPages > 1 && (
+              <Stack spacing={2} className="pagination-container">
+                <Pagination
+                  count={totalPages}
+                  page={page}
+                  onChange={handlePageChange}
+                  variant="outlined"
+                  shape="rounded"
+                />
+              </Stack>
+            )}
+          </>
         )}
       </div>
     </div>

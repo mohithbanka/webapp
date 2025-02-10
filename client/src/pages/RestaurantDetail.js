@@ -71,7 +71,6 @@ const RestaurantDetail = () => {
           {restaurant.user_rating.rating_text || "No rating"}))
         </Typography>
 
-        {/* Menu URL Section */}
         {restaurant.menu_url && (
           <Typography
             variant="body1"

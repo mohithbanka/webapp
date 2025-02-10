@@ -5,23 +5,21 @@ import "./RestaurantCard.css"; // Import your custom CSS for additional styling
 
 const RestaurantCard = ({ restaurant }) => {
   return (
-    <Link
-      to={`/restaurant/${restaurant.id}`}
-      className="restaurant-card"
-    >
+    <Link to={`/restaurant/${restaurant.id}`} className="restaurant-card">
       <Card
         sx={{ maxWidth: 345, borderRadius: 2, boxShadow: 3, marginBottom: 3 }}
       >
-        {/* Restaurant Image */}
         <CardMedia
           component="img"
           height="200"
-          image={restaurant.featured_image || "https://b.zmtcdn.com/data/pictures/4/306134/a3808bac6743110762e4cd2b1c60db94_featured_v2.jpg"} // Add default image if not available
+          image={
+            restaurant.featured_image ||
+            "https://b.zmtcdn.com/data/pictures/4/306134/a3808bac6743110762e4cd2b1c60db94_featured_v2.jpg"
+          }
           alt={restaurant.name}
           sx={{ borderRadius: 2 }}
         />
         <CardContent>
-          {/* Restaurant Details */}
           <Typography variant="h6" component="div" sx={{ fontWeight: "bold" }}>
             {restaurant.name}
           </Typography>

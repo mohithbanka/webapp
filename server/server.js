@@ -55,7 +55,7 @@ app.get("/restaurants/:id", async (req, res) => {
     });
 
     if (!restaurant) {
-      console.log("❌ No matching restaurant found.");
+      // console.log("❌ No matching restaurant found.");
       return res.status(404).json({ message: "Restaurant Not Found" });
     }
 
@@ -77,7 +77,7 @@ app.get("/all-restaurants", async (req, res) => {
 
     const restaurants = await Restaurant.find()
       .select(
-        "name cuisines location average_cost_for_two price_range user_rating featured_image menu_url"
+        "id name cuisines location average_cost_for_two price_range user_rating featured_image menu_url"
       )
       .skip((page - 1) * limit)
       .limit(limit)

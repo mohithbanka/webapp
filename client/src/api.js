@@ -1,22 +1,20 @@
 import axios from "axios";
 
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "https://webapp-zemg.onrender.com"; // Change this to your backend URL
+  process.env.REACT_APP_API_BASE_URL || "https://webapp-zemg.onrender.com";
 
-// Fetch all restaurants (paginated)
+
 export const getRestaurants = async (page, limit) => {
   let url = `${API_BASE_URL}/all-restaurants?page=${page}&limit=${limit}`;
   const response = await fetch(url);
   return response.json(); // Return JSON response
 };
 
-// Fetch restaurant by ID
 export const getRestaurantById = async (id) => {
   const response = await axios.get(`${API_BASE_URL}/restaurants/${id}`);
-  return response.data; // Return restaurant data
+  return response.data; 
 };
 
-// Fetch nearby restaurants based on location
 export const searchNearbyRestaurants = async (lat, lng, dist) => {
   try {
     const response = await axios.get(
@@ -26,15 +24,13 @@ export const searchNearbyRestaurants = async (lat, lng, dist) => {
       }
     );
 
-    console.log("📡 API Response:", response.data); // Debugging log
-    return response.data; // Return the fetched restaurants
+    return response.data; 
   } catch (error) {
     console.error("❌ Error fetching nearby restaurants:", error);
-    return { total: 0, restaurants: [] }; // Return empty if error occurs
+    return { total: 0, restaurants: [] }; 
   }
 };
 
-// Search restaurants by image (optional feature)
 export const searchByImage = async (formData) => {
   try {
     const response = await axios.post(
