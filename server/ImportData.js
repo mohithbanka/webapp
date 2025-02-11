@@ -10,8 +10,8 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.log("❌ MongoDB Connection Error:", err));
 
 const importData = async () => {
   try {
@@ -36,7 +36,7 @@ const importData = async () => {
               coordinates: [
                 parseFloat(rest.location.longitude),
                 parseFloat(rest.location.latitude),
-              ], // GeoJSON format
+              ],
               address: rest.location.address,
               city: rest.location.city,
             },
@@ -56,13 +56,33 @@ const importData = async () => {
       throw new Error("No valid restaurants found in the JSON file.");
     }
 
-    await Restaurant.insertMany(restaurants);
-    console.log(`Successfully imported ${restaurants.length} restaurants.`);
+    for (const restaurant of restaurants) {
+      await Restaurant.updateOne(
+        { id: restaurant.id }, // Search by `id`
+        { $set: restaurant }, // Update with new data
+        { upsert: true } // Insert if not exists
+      );
+    }
+
+    console.log(
+      `✅ Successfully imported/updated ${restaurants.length} restaurants.`
+    );
     process.exit();
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error("❌ Error:", error.message);
     process.exit(1);
   }
 };
 
+// Ensure `id` is unique in MongoDB
+const ensureUniqueIndex = async () => {
+  try {
+    await Restaurant.createIndexes({ id: 1 }, { unique: true });
+    console.log("✅ Unique index created on `id`.");
+  } catch (error) {
+    console.error("❌ Error creating unique index:", error.message);
+  }
+};
+
+ensureUniqueIndex();
 importData();
