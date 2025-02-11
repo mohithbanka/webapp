@@ -33,7 +33,9 @@
   border: 1px solid #ff5722;
 }
 
-.search-btn {
+/* Search & Location Buttons */
+.search-btn,
+.location-btn {
   background-color: #ff5722;
   color: white;
   padding: 12px 20px;
@@ -44,15 +46,32 @@
   width: 250px;
 }
 
-.search-btn:hover {
+.search-btn:hover,
+.location-btn:hover {
   background-color: #e64a19;
   transform: translateY(-3px);
 }
 
-.search-btn:active {
+.search-btn:active,
+.location-btn:active {
   transform: translateY(1px);
 }
 
+/* Styling for "Use Current Location" Button */
+.location-btn {
+  background-color: #4caf50;
+}
+
+.location-btn:hover {
+  background-color: #388e3c;
+}
+
+.location-btn:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .location-search {
     width: 100%;
@@ -61,7 +80,8 @@
 
   .input,
   .dropdown,
-  .search-btn {
+  .search-btn,
+  .location-btn {
     width: 100%;
   }
 }

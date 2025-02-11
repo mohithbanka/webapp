@@ -77,25 +77,44 @@ const RestaurantList = () => {
           </Box>
         ) : (
           <>
-            <div className="grid">
-              {restaurants.map((restaurant) => (
-                <RestaurantCard
-                  key={restaurant.restaurant_id}
-                  restaurant={restaurant}
-                />
-              ))}
-            </div>
+            {restaurants.length === 0 ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "50vh",
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+                  color: "#ff5722",
+                  textAlign: "center",
+                }}
+              >
+                <p>No Restaurants Found</p>
+              </Box>
+            ) : (
+              <>
+                <div className="grid">
+                  {restaurants.map((restaurant) => (
+                    <RestaurantCard
+                      key={restaurant.restaurant_id}
+                      restaurant={restaurant}
+                    />
+                  ))}
+                </div>
 
-            {totalPages > 1 && (
-              <Stack spacing={2} className="pagination-container">
-                <Pagination
-                  count={totalPages}
-                  page={page}
-                  onChange={handlePageChange}
-                  variant="outlined"
-                  shape="rounded"
-                />
-              </Stack>
+                {totalPages > 1 && (
+                  <Stack spacing={2} className="pagination-container">
+                    <Pagination
+                      count={totalPages}
+                      page={page}
+                      onChange={handlePageChange}
+                      variant="outlined"
+                      shape="rounded"
+                    />
+                  </Stack>
+                )}
+              </>
             )}
           </>
         )}
