@@ -34,7 +34,10 @@ const RestaurantDetail = () => {
     <Box sx={{ padding: 3 }} className="restaurant-detail-container">
       <div className="restaurant-header">
         <img
-          src={restaurant.featured_image || "default-image-url.jpg"}
+          src={
+            restaurant.featured_image ||
+            "https://b.zmtcdn.com/data/pictures/4/306134/a3808bac6743110762e4cd2b1c60db94_featured_v2.jpg"
+          }
           alt={restaurant.name}
           className="restaurant-image"
         />

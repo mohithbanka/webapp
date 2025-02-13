@@ -6,7 +6,7 @@
   gap: 15px;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
-  border-radius: 10px; /* Rounded corners */
+  border-radius: 10px; 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -33,7 +33,7 @@
   border: 1px solid #ff5722;
 }
 
-/* Search & Location Buttons */
+
 .search-btn,
 .location-btn {
   background-color: #ff5722;
@@ -57,7 +57,7 @@
   transform: translateY(1px);
 }
 
-/* Styling for "Use Current Location" Button */
+
 .location-btn {
   background-color: #4caf50;
 }
@@ -71,7 +71,7 @@
   cursor: not-allowed;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .location-search {
     width: 100%;

@@ -1,40 +1,90 @@
-.image-search {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: 0 auto 20px auto;
-  }
-  
-  .file-input {
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .image-preview {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  
-  .search-btn {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .search-btn:hover {
-    background: #0056b3;
-  }
-  
+.image-search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 50px auto;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.image-search-container:hover {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Upload Button Styling */
+.upload-btn {
+  background-color: #ff5722;
+  color: white;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.3s ease-in-out;
+  margin-bottom: 15px;
+  border: none;
+}
+
+.upload-btn:hover {
+  background-color: #e64a19;
+}
+
+/* Hide default input */
+input[type="file"] {
+  display: none;
+}
+
+.error-message {
+  color: red;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+button {
+  background: #1976d2;
+  color: white;
+  font-size: 1rem;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+button:hover {
+  background: #1565c0;
+}
+
+button:disabled {
+  background: #b0bec5;
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.text{
+  color:black;
+}

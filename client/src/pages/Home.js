@@ -3,6 +3,7 @@ import { Container, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import LocationSearch from "../components/LocationSearch";
+import ImageSearch from "../components/ImageSearch";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Home = () => {
   };
 
   return (
+    
     <Container
       maxWidth="md"
       sx={{ textAlign: "center", paddingTop: 4 }}
@@ -44,6 +46,7 @@ const Home = () => {
       </Box>
 
       <LocationSearch onSearch={handleLocationSearch} />
+      <ImageSearch />
     </Container>
   );
 };

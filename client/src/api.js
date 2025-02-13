@@ -14,34 +14,34 @@ export const getRestaurantById = async (id) => {
   return response.data;
 };
 
-export const searchNearbyRestaurants = async (lat, lng, dist) => {
-  try {
-    const response = await axios.get(
-      `${API_BASE_URL}/api/restaurants/location`,
-      {
-        params: { lat, lng, dist },
-      }
-    );
+// export const searchNearbyRestaurants = async (lat, lng, dist) => {
+//   try {
+//     const response = await axios.get(
+//       `${API_BASE_URL}/api/restaurants/location`,
+//       {
+//         params: { lat, lng, dist },
+//       }
+//     );
 
-    return response.data;
-  } catch (error) {
-    console.error("❌ Error fetching nearby restaurants:", error);
-    return { total: 0, restaurants: [] };
-  }
-};
+//     return response.data;
+//   } catch (error) {
+//     console.error("❌ Error fetching nearby restaurants:", error);
+//     return { total: 0, restaurants: [] };
+//   }
+// };
 
-export const searchByImage = async (formData) => {
-  try {
-    const response = await axios.post(
-      `${API_BASE_URL}/image-search`,
-      formData,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("❌ Error searching by image:", error);
-    return { total: 0, restaurants: [] };
-  }
-};
+// export const searchByImage = async (formData) => {
+//   try {
+//     const response = await axios.post(
+//       `${API_BASE_URL}/search-by-image`,
+//       formData,
+//       {
+//         headers: { "Content-Type": "multipart/form-data" },
+//       }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.error("❌ Error searching by image:", error);
+//     return { total: 0, restaurants: [] };
+//   }
+// };
