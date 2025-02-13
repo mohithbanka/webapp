@@ -5,6 +5,10 @@ import { Button, CircularProgress, Box, Typography } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import "./ImageSearch.css";
 
+const API_BASE_URL =
+process.env.REACT_APP_API_BASE_URL || "https://webapp-zemg.onrender.com";
+
+
 const ImageSearch = () => {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -33,7 +37,7 @@ const ImageSearch = () => {
       setError("");
 
       const response = await axios.post(
-        "http://localhost:5000/search-by-image",
+        `${API_BASE_URL}/search-by-image`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
