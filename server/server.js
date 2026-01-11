@@ -10,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 const mongoURI = process.env.MONGO_URI;
+// ||"mongodb+srv://mohithbanka285:LcRXTXpUKSgAuFkJ@cluster0.7vm8m.mongodb.net/?appName=Cluster0";
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("✅ Connected to MongoDB"))

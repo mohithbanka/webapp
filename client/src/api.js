@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "https://webapp-zemg.onrender.com";
+// const API_BASE_URL =
+//   process.env.REACT_APP_API_BASE_URL|| "https://webapp-zemg.onrender.com";
 
+const API_BASE_URL="https://webapp-zemg.onrender.com";
 export const getRestaurants = async (page, limit) => {
   let url = `${API_BASE_URL}/all-restaurants?page=${page}&limit=${limit}`;
   const response = await fetch(url);
   return response.json();
 };
-
 export const getRestaurantById = async (id) => {
   const response = await axios.get(`${API_BASE_URL}/restaurants/${id}`);
   return response.data;
